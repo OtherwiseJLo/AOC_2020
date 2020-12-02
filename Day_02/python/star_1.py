@@ -1,9 +1,11 @@
-from typing import Dict
+from aoc import aoc_read_input
 import re
+from typing import List, Dict
+from os import path
 
 
-def password_input(line: str) -> Dict:
-    low_to_high, letter, password = line.split(" ")
+def transform_input(input_val: str):
+    low_to_high, letter, password = input_val.split(" ")
     lowest, highest = [int(x) for x in low_to_high.split("-")]
     letter = letter.split(":")[0]
     password = password.strip()
@@ -15,14 +17,14 @@ def password_input(line: str) -> Dict:
     }
 
 
-def check_is_valid(password_input: Dict) -> bool:
-    matches = re.findall(password_input["letter"], password_input["password"])
-    return (n_matches := len(matches)) >= password_input[
+def func1(input_vals):
+    matches = re.findall(input_vals["letter"], input_vals["password"])
+    return (n_matches := len(matches)) >= input_vals[
         "lowest"
-    ] and n_matches <= password_input["highest"]
+    ] and n_matches <= input_vals["highest"]
 
 
 if __name__ == "__main__":
-    with open("input", "r") as f:
-        passwords = [password_input(line.strip()) for line in f.readlines()]
-        print(sum(map(check_is_valid, passwords)))
+    input_vals = aoc_read_input(path.abspath(__file__))
+    input_vals = map(transform_input, input_vals)
+    print(sum(map(func1, input_vals)))
