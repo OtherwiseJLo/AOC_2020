@@ -1,9 +1,10 @@
-from typing import Dict
-import re
+from aoc import aoc_read_input
+from typing import List
+from os import path
 
 
-def password_input(line: str) -> Dict:
-    positions, letter, password = line.split(" ")
+def transform_input(input_val: str) -> dict:
+    positions, letter, password = input_val.split(" ")
     p1, p2 = [int(x) for x in positions.split("-")]
     letter = letter.split(":")[0]
     password = password.strip()
@@ -15,13 +16,13 @@ def password_input(line: str) -> Dict:
     }
 
 
-def check_is_valid(password_input: Dict) -> bool:
-    cond1 = password_input["password"][password_input["p1"]] == password_input["letter"]
-    cond2 = password_input["password"][password_input["p2"]] == password_input["letter"]
+def func1(input_val: List):
+    cond1 = input_val["password"][input_val["p1"]] == input_val["letter"]
+    cond2 = input_val["password"][input_val["p2"]] == input_val["letter"]
     return (not (cond1 and cond2)) and (cond1 or cond2)
 
 
 if __name__ == "__main__":
-    with open("input", "r") as f:
-        passwords = [password_input(line.strip()) for line in f.readlines()]
-        print(sum(map(check_is_valid, passwords)))
+    input_vals = aoc_read_input(path.abspath(__file__))
+    input_vals = map(transform_input, input_vals)
+    print(sum(map(func1, input_vals)))
