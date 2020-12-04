@@ -33,7 +33,7 @@ if __name__ == "__main__":
     input_vals = aoc_read_input(path.abspath(__file__))
     input_vals = np.stack(list(map(transform_input, input_vals)))
     slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
-    trees = [func1(input_vals, dx, dy) for dx, dy in slopes]
+    trees = [func1(input_vals, *slope) for slope in slopes]
     print(trees)
     prod = 1
     for tree in trees:
