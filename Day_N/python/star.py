@@ -12,6 +12,6 @@ def func1(input_vals):
 
 
 if __name__ == "__main__":
-    input_vals = aoc_read_input(path.abspath(__file__))
+    input_vals = aoc_read_input(path.abspath(__file__), split_empytline=False)
     input_vals = map(transform_input, input_vals)
     print(func1(input_vals))
